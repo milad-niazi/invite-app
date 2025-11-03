@@ -6,24 +6,22 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('invitation_links', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('link_address')->unique();
-            $table->integer('status')->default(1);
+            $table->unsignedBigInteger('ceremony_id');
+            $table->uuid('link_address')->unique();
+            $table->tinyInteger('status')->default(1);
+            $table->timestamp('expires_at')->nullable();
             $table->timestamps();
+
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('ceremony_id')->references('id')->on('ceremonies')->onDelete('cascade');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('invitation_links');

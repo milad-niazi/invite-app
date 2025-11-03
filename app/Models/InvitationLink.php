@@ -9,9 +9,13 @@ class InvitationLink extends Model
 {
     use HasFactory;
     protected $table = 'invitation_links';
-    protected $fillable = ['user_id', 'link_address', 'status'];
+    protected $fillable = ['user_id', 'ceremony_id', 'link_address', 'status'];
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function ceremony()
+    {
+        return $this->belongsTo(Ceremony::class);
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CeremonyController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\InvitationController;
@@ -37,6 +38,14 @@ Route::middleware('auth')->prefix('invitation')->group(function () {
     Route::get('/{invitation}/edit', [InvitationController::class, 'edit'])->name('invitation.edit');
     Route::patch('/{invitation}', [InvitationController::class, 'update'])->name('invitation.update');
     Route::delete('/{invitation}', [InvitationController::class, 'destroy'])->name('invitation.destroy');
+});
+Route::middleware('auth')->prefix('ceremony')->group(function () {
+    Route::get('/', [CeremonyController::class, 'index'])->name('ceremony.index');
+    Route::get('/create', [CeremonyController::class, 'create'])->name('ceremony.create');
+    Route::post('/', [CeremonyController::class, 'store'])->name('ceremony.store');
+    Route::get('/{ceremony}/edit', [CeremonyController::class, 'edit'])->name('ceremony.edit');
+    Route::patch('/{ceremony}', [CeremonyController::class, 'update'])->name('ceremony.update');
+    Route::delete('/{ceremony}', [CeremonyController::class, 'destroy'])->name('ceremony.destroy');
 });
 
 Route::get('/invite/{link_address}', [InvitationController::class, 'show'])->name('invitation.show');
