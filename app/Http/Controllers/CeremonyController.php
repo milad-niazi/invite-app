@@ -6,12 +6,21 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Facades\CeremonyManager;
 use App\Factories\CeremonyFactory;
+use App\Repositories\CeremonyRepository;
 
 class CeremonyController extends Controller
 {
+    protected $ceremonyRepository;
+
+    public function __construct(CeremonyRepository $ceremonyRepository)
+    {
+        $this->ceremonyRepository = $ceremonyRepository;
+    }
     public function index()
     {
-        return view('ceremonies.index');
+        $ceremonies = $this->ceremonyRepository->all();
+
+        return view('ceremonies.index', compact('ceremonies'));
     }
     public function create()
     {
@@ -46,15 +55,20 @@ class CeremonyController extends Controller
         //     'status' => $request->status,
         // ]);
 
-        return redirect()->route('ceremony.create')->with('success', 'مراسم با موفقیت ایجاد شد!');
+        return redirect()->route('ceremony.index')->with('success', 'مراسم با موفقیت ایجاد شد!');
     }
-    public function show(string $linkAddress)
+    public function edit(string $linkAddress) {}
+    public function update(string $linkAddress) {}
+    public function destroy($id)
     {
-        $invitation = InvitationManager::findByLink($linkAddress);
-        if (!$invitation) {
-            abort(404, 'Invitation not found');
-        }
+        $ceremony = $this->ceremonyRepository->findById($id);
 
-        return view('invitation.show', ['invitation' => $invitation]);
+        if (!$ceremony) {
+            return redirect()->route('ceremony.index')
+                ->with('error', 'Ceremony not found.');
+        }
+        $ceremony->delete();
+        return redirect()->route('ceremony.index')
+            ->with('success', 'Ceremony deleted successfully.');
     }
 }

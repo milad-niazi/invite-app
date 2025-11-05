@@ -20,4 +20,7 @@ class Ceremony extends Model
     {
         return $this->hasMany(InvitationLink::class);
     }
+    protected $casts = [
+        'date' => 'datetime',
+    ];
 }

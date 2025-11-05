@@ -5,7 +5,7 @@ namespace App\Repositories;
 use App\Models\InvitationLink;
 use Illuminate\Support\Str;
 
-class InvitationLinkRepository
+class InvitationRepository
 {
     public function create(array $data): InvitationLink
     {
@@ -21,5 +21,9 @@ class InvitationLinkRepository
     public function allForUser(int $userId)
     {
         return InvitationLink::where('user_id', $userId)->get();
+    }
+    public function findById(int $id): ?InvitationLink
+    {
+        return InvitationLink::find($id);
     }
 }
