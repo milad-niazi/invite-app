@@ -16,7 +16,7 @@
 
             <h2 class="text-xl font-semibold mt-4 mb-2">Ceremony Information</h2>
             @if ($invitation->ceremony)
-                <p><strong>Ceremony Name:</strong> {{ $invitation->ceremony->name }}</p>
+                <p><strong>Ceremony Title:</strong> {{ $invitation->ceremony->title }}</p>
                 <p><strong>Description:</strong> {{ $invitation->ceremony->description ?? 'No description' }}</p>
                 <p><strong>Date:</strong>
                     {{ $invitation->ceremony->date ? \Carbon\Carbon::parse($invitation->ceremony->date)->format('Y-m-d H:i') : 'Unknown' }}
