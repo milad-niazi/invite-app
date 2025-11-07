@@ -11,6 +11,23 @@ This repository is currently under development and serves as a **learning projec
 - Repository Pattern  
 - Factory Method Pattern  
 - Facade Pattern  
+- **Observer Pattern** ✅ *(newly added)*  
+
+---
+
+## 💡 Design Pattern Highlight — Observer Pattern
+The **Observer Design Pattern** is implemented in this project to keep the system data consistent.
+
+Whenever a **Ceremony** changes its status (e.g., becomes inactive),  
+the `CeremonyObserver` automatically updates all related **Invitation Links** to match the new status.
+
+**Implementation files:**
+- `app/Observers/CeremonyObserver.php`
+- `app/Models/Ceremony.php`
+- `app/Models/InvitationLink.php`
+
+This approach ensures **decoupled logic**, **cleaner controllers**, and **automatic synchronization**  
+between ceremonies and their invitation links — following clean architecture principles.
 
 ---
 
